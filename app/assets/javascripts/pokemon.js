@@ -31,25 +31,25 @@ PokemonApp.Pokemon.prototype.render = function() {
 				} else {
 					console.log(arrayOfTypes[0].name)
 					return arrayOfTypes[0].name + " and " + arrayOfTypes[1].name
-				}
-			}	
-	$.ajax({
-		url: 'http://pokeapi.co' + self.info.sprites[0].resource_uri,
-
-		success: function (response) {
-			var image = response.image
-			$('.js-pkmn-sprites').html(`<img src="http://pokeapi.co${image}">`);
-		}
-// description request
-	$.ajax({
+				}	
+			}
+		$.ajax({
 			url: 'http://pokeapi.co' + self.info.sprites[0].resource_uri,
 
 			success: function (response) {
 				var image = response.image
 				$('.js-pkmn-sprites').html(`<img src="http://pokeapi.co${image}">`);
 			}
+		});
+	// description request
+		// $.ajax({
+		// 		url: 'http://pokeapi.co' + self.info.description,
+		// 		success: function (response) {
+		// 			console.log(response);
+		// 			// $('.js-pkmn-sprites').html(`<img src="http://pokeapi.co${image}">`);
+		// 		}
 
-	})
+		// });
 
 			$('.js-pkmn-name').text(self.info.name);
 			$('.js-pkmn-number').text(self.info.pkdx_id);
@@ -64,15 +64,12 @@ PokemonApp.Pokemon.prototype.render = function() {
 			$('.js-pkmn-types').text(displayTypes(self.info.types));
 
 			$(".js-pokemon-modal").modal("show");
-		},
+	},
 		error: function () {
 			alert("this is an error");
 		}
-	})
-};
-
-
-
+	});
+}
 PokemonApp.Pokemon.idFromUri = function (pokemonUri) {
 	var uriSegments = pokemonUri.split("/");
 	var secondLast = uriSegments.length - 2;
